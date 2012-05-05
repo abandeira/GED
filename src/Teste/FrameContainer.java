@@ -4,10 +4,12 @@
  */
 package Teste;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author ANDRE
  */
-public class FrameContainer {
+public class FrameContainer extends JInternalFrame{
     
 }

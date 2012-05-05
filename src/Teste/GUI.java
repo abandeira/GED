@@ -11,13 +11,10 @@
 package Teste;
 
 import diagram.Grafo;
-import diagram.componente.Componente;
 import diagram.editor.EditorAplicativoGrafo;
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 /**
  *
