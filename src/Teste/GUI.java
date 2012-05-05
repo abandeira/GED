@@ -15,6 +15,7 @@ import diagram.editor.EditorAplicativoGrafo;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
+import javax.swing.event.InternalFrameListener;
 
 /**
  *
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 public class GUI extends javax.swing.JFrame {
     private Grafo grafo;
     private EditorAplicativoGrafo editor;
-    private JPanel jp;
+    private FrameContainer container;
     private Menu menu;
 
     /** Creates new form GUI */
@@ -110,21 +111,19 @@ public class GUI extends javax.swing.JFrame {
         editor = new EditorAplicativoGrafo(grafo,this);
             
         grafo.setEditor(editor);
-            
-//        menu.ReceberEditoreGrafo(editor, grafo);
-        
-        jp = new JPanel(new GridLayout(2,2));
-        jp.setLayout(new BorderLayout());
+                    
+        container = new FrameContainer(editor);
+        container.setLayout(new BorderLayout());
                 
         //Adiciona o JScrollPane ao Painel
-        jp.add(BorderLayout.CENTER,editor);
+        container.add(BorderLayout.CENTER,editor);
             
         //Adicionar o painel a JTabbedPane() na Tabela
-        Abas.addTab("teste", jp);
+        Abas.addTab("teste", container);
 
 
         //Ir para a aba selecionada
-        Abas.setSelectedComponent(jp);
+        Abas.setSelectedComponent(container);
 
         repaint();
                 
@@ -136,20 +135,21 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     // End of variables declaration//GEN-END:variables
 
-    public void RemoverAbas(EditorAplicativoGrafo editor) {
-        Abas.remove(editor.getParent());
-    }
 
     public EditorAplicativoGrafo getEditorSelecionado()
     {
-        JPanel panel = (JPanel)Abas.getSelectedComponent();
-        EditorAplicativoGrafo editorgrafo = (EditorAplicativoGrafo)panel.getComponent(0);
+        FrameContainer containerTemp = (FrameContainer)Abas.getSelectedComponent();
+        EditorAplicativoGrafo editorgrafo = containerTemp.getEditor();
         return editorgrafo;
     }
 
     public int getQuantidadeAbas()
     {
         return Abas.getTabCount();
+    }
+
+    void RemoverAbas(FrameContainer containerTemp) {
+        Abas.remove(containerTemp);
     }
 
 }

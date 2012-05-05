@@ -25,9 +25,12 @@ import diagram.componente.Componente;
 import diagram.componente.Vertice;
 import java.awt.AWTKeyStroke;
 import java.awt.KeyboardFocusManager;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -135,9 +138,7 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                 
 		//Seta o editor para editar o grafo...
 		editar = EDITAR;
-		
-                editor = this;
-                
+		               
 		//O grafo inicial n�o existe...
 		grafo = null;
 		
@@ -216,11 +217,16 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                 Set<AWTKeyStroke> empty = Collections.emptySet();  
                 this.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, empty);  
                 this.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, empty);
-              
-                this.setClosable(true);
-                this.setMaximizable(true);
                 
-                eventos();
+                //Remover a barra de titulo
+                ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        
+                try {
+                    this.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                     Logger.getLogger(EditorAplicativoGrafo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
 	}
 	
 	/**
@@ -1277,36 +1283,6 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
         return this.verticeFoco;
     }
     
-       private void eventos() {
-        
-        this.addInternalFrameListener( new InternalFrameListener() {  
-                
-           @Override
-           public void internalFrameClosed(InternalFrameEvent e) {               
-               frame.RemoverAbas(editor);
-            }  
-
-            @Override
-            public void internalFrameClosing(InternalFrameEvent e) {}
-
-            @Override
-            public void internalFrameOpened(InternalFrameEvent e) {}
-
-            @Override
-            public void internalFrameIconified(InternalFrameEvent e) {}
-
-            @Override
-            public void internalFrameDeiconified(InternalFrameEvent e) {}
-
-            @Override
-            public void internalFrameActivated(InternalFrameEvent e) {}
-
-            @Override
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
-
-       });
-    }
-
     /**
      * @return the areaGrafo
      */
@@ -1319,5 +1295,12 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
      */
     public void setAreaGrafo(AreaAplicativo areaGrafo) {
         this.areaGrafo = areaGrafo;
+    }
+
+    /**
+     * @return the frame
+     */
+    public GUI getFrame() {
+        return frame;
     }
 }
