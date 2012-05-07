@@ -14,6 +14,8 @@ import diagram.Grafo;
 import diagram.editor.EditorAplicativoGrafo;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.InternalFrameListener;
 
@@ -21,7 +23,7 @@ import javax.swing.event.InternalFrameListener;
  *
  * @author ANDRE
  */
-public class GUI extends javax.swing.JFrame {
+public class GUI extends JFrame {
     private Grafo grafo;
     private EditorAplicativoGrafo editor;
     private FrameContainer container;
@@ -33,6 +35,7 @@ public class GUI extends javax.swing.JFrame {
         Menu m = new Menu(JMenuBar,this);
         menu = m;
         this.setTitle("EDITOR DE DIAGRAMAS (GED)");
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
 
     /** This method is called from within the constructor to
@@ -105,27 +108,38 @@ public class GUI extends javax.swing.JFrame {
         });
     }
     
-    public void AdicionarAbas(){
-        grafo = new Grafo();
+    public int AdicionarAbas(){
+        String nomeProjeto = this.getNomeProjeto();
+        
+        if(nomeProjeto!=null)
+        {
+            grafo = new Grafo();
             
-        editor = new EditorAplicativoGrafo(grafo,this);
+            editor = new EditorAplicativoGrafo(grafo,this);
             
-        grafo.setEditor(editor);
+            grafo.setEditor(editor);
                     
-        container = new FrameContainer(editor);
-        container.setLayout(new BorderLayout());
+            container = new FrameContainer(editor);
+            container.setLayout(new BorderLayout());
                 
-        //Adiciona o JScrollPane ao Painel
-        container.add(BorderLayout.CENTER,editor);
+            //Adiciona o JScrollPane ao Painel
+            container.add(BorderLayout.CENTER,editor);
+                    
+            //Adicionar o painel a JTabbedPane() na Tabela
+            Abas.addTab(nomeProjeto, container);
+
+
+            //Ir para a aba selecionada
+            Abas.setSelectedComponent(container);
+
+            repaint();
             
-        //Adicionar o painel a JTabbedPane() na Tabela
-        Abas.addTab("teste", container);
-
-
-        //Ir para a aba selecionada
-        Abas.setSelectedComponent(container);
-
-        repaint();
+            //A aba foi adicionada com sucesso
+            return 1;
+        }
+        
+        //A aba não foi adicionada
+        return 0;
                 
     }
     
@@ -138,9 +152,13 @@ public class GUI extends javax.swing.JFrame {
 
     public EditorAplicativoGrafo getEditorSelecionado()
     {
-        FrameContainer containerTemp = (FrameContainer)Abas.getSelectedComponent();
-        EditorAplicativoGrafo editorgrafo = containerTemp.getEditor();
-        return editorgrafo;
+        if(Abas.getComponentCount()!=0)
+        {
+            FrameContainer containerTemp = (FrameContainer)Abas.getSelectedComponent();
+            EditorAplicativoGrafo editorgrafo = containerTemp.getEditor();
+            return editorgrafo;
+        }
+        return null;
     }
 
     public int getQuantidadeAbas()
@@ -152,4 +170,27 @@ public class GUI extends javax.swing.JFrame {
         Abas.remove(containerTemp);
     }
 
+       //Recebe o nome do projeto
+    public String getNomeProjeto() 
+    {
+        String nome=""; 
+        while ("".equals(nome)) 
+        {
+            //Recebe o nome digitado na variável nome
+            nome = JOptionPane.showInputDialog(editor,"Digite o nome do projeto?","Digite o nome do projeto?",1);
+
+            //Se não foi digitado nenhum nome, pede para digitar um nome válido
+            if ("".equals(nome))  
+            {
+                JOptionPane.showMessageDialog(editor, "Nome do projeto Inválido");
+            }
+        }
+                    
+        //Se não foi clicado em cancelar, cria o projeto com o nome digitado
+        if (nome!=null)
+        {
+            return nome;
+        }
+        return null;
+    }
 }

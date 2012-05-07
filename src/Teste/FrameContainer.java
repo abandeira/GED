@@ -5,6 +5,8 @@
 package Teste;
 
 import diagram.editor.EditorAplicativoGrafo;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -55,8 +57,12 @@ public class FrameContainer extends JInternalFrame{
             public void internalFrameActivated(InternalFrameEvent e) {}
 
             @Override
-            public void internalFrameDeactivated(InternalFrameEvent e) {}
+            public void internalFrameDeactivated(InternalFrameEvent e) {
+
+            }
 
        });
+        
+        
     }
 }

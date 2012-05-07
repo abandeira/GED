@@ -34,10 +34,10 @@ public class ArestaSimples extends Aresta
 	{
 		super(verticeOrigem, verticeDestino);
                 Rotulo rotulo = new Rotulo();
-                rotulo.setTexto("Aresta de "+verticeOrigem.getRotulo().getTexto()+" à "+verticeDestino.getRotulo().getTexto());
+                rotulo.setTexto("");
                 this.setRotulo(rotulo);
 		setCorArestaSimples(CORPADRAO);
-                this.setDescricao(rotulo.getTexto());
+                this.setDescricao("Aresta de "+verticeOrigem.getRotulo().getTexto()+" à "+verticeDestino.getRotulo().getTexto());
 	}
 	
 	/**

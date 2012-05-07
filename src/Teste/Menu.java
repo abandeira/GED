@@ -4,20 +4,16 @@ package Teste;
 
 
 import diagram.Grafo;
-import diagram.componente.ArestaIncludeExtend;
-import diagram.componente.ArestaSimples;
-import diagram.componente.Componente;
-import diagram.componente.Vertice;
-import diagram.componente.VerticeAtor;
-import diagram.componente.VerticeCasoUso;
+import diagram.componente.*;
 import diagram.editor.EditorAplicativoGrafo;
 import diagram.organizarAlfabeticamente;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.util.Collections;
-import java.awt.event.*;		
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 
@@ -230,10 +226,13 @@ public class Menu extends JMenuBar {
             casoDeUso.addActionListener(new ActionListener() {   
             @Override
                public void actionPerformed(ActionEvent e) {
-                   frame.AdicionarAbas();
-                   CasodeUsoMenu.setVisible(true);
-                   Navegacao.setVisible(true);
-                   frame.getEditorSelecionado().requestFocus();
+                    int AdicionarAbas = frame.AdicionarAbas();
+                    if(AdicionarAbas==1) //A ABA FOI ADICIONADA COM SUCESSO
+                    {
+                        CasodeUsoMenu.setVisible(true);
+                        Navegacao.setVisible(true);
+                        frame.getEditorSelecionado().requestFocus();
+                    }
                }   
             });
  

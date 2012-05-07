@@ -2,29 +2,14 @@ package diagram.editor;
 
 import Teste.GUI;
 import Teste.Menu;
-import javax.swing.JScrollBar;
-
-import java.awt.Container;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-
 import diagram.Grafo;
-
-import diagram.menu.JMenuMouse;
-
 import diagram.componente.Aresta;
 import diagram.componente.Componente;
 import diagram.componente.Vertice;
-import java.awt.AWTKeyStroke;
-import java.awt.KeyboardFocusManager;
+import diagram.componente.VerticeAtor;
+import diagram.menu.JMenuMouse;
+import java.awt.*;
+import java.awt.event.*;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,8 +17,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 
 /**
  * Est� � a classe principal do editor de aplicativo. Uma inst�ncia simples desta 
@@ -221,12 +206,14 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                 //Remover a barra de titulo
                 ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         
+                //Selecionar o JInternalFrame
                 try {
                     this.setSelected(true);
                 } catch (PropertyVetoException ex) {
                      Logger.getLogger(EditorAplicativoGrafo.class.getName()).log(Level.SEVERE, null, ex);
                 }
               
+                eventos();
 	}
 	
 	/**
@@ -1303,4 +1290,29 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
     public GUI getFrame() {
         return frame;
     }
+
+    private void eventos() {
+
+        this.addFocusListener( new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+               
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                if (!grafo.getComponentesOrdenados().isEmpty())
+                {
+                    //Desmarcar todos os componentes do grafo
+                    getAreaGrafo().desmarcarTodosComponentes();
+                }
+            }
+                
+
+       });
+    }
+
+ 
 }
