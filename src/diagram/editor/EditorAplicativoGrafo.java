@@ -727,10 +727,7 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                         //Seleciona o componente
                         grafo.SelecionarComponente(componentes.get(i));
                     
-                        repaint();
-                       
-                        //Chama o método para a leitura do rótulo deste componente
-                        this.leitura(componentes.get(i).getDescricao());   
+ 
                     }
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_CONTEXT_MENU)
@@ -830,10 +827,7 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                     //Seleciona o componente
                     grafo.SelecionarComponente(componentes.get(i));
  
-                    repaint();
-                      
-                    //Chama o método para a leitura do rótulo deste componente
-                    this.leitura(componentes.get(i).getDescricao()); 
+
                 }
                 
                 //Tecla end ativada retorna ao ultimo elemento da lista
@@ -863,10 +857,7 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
                     //Seleciona o componente
                     grafo.SelecionarComponente(componentes.get(i));
  
-                    repaint();
-                      
-                    //Chama o método para a leitura do rótulo deste componente
-                    this.leitura(componentes.get(i).getDescricao()); 
+
                 }
         }
 	
@@ -1038,14 +1029,9 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
             
             
             Leitura.requestFocus();
-//            String des = this.getAccessibleContext().getAccessibleDescription();
-//            String nom = this.getAccessibleContext().getAccessibleName();
-//            this.getAccessibleContext().setAccessibleDescription("");
-//            this.getAccessibleContext().setAccessibleName("");
+
             this.requestFocus();
             
-//            this.getAccessibleContext().setAccessibleDescription(des);
-//            this.getAccessibleContext().setAccessibleName(nom);
         }
 
         public void selecionarComponente(Componente c)
@@ -1094,10 +1080,7 @@ public class EditorAplicativoGrafo extends JInternalFrame implements AdjustmentL
             //Seleciona o componente
             grafo.SelecionarComponente(componentes.get(i));
                     
-            repaint();
-                       
-            //Chama o método para a leitura do rótulo deste componente
-            this.leitura(componentes.get(i).getDescricao());   
+
             
         } 
         

@@ -1343,8 +1343,8 @@ public class Grafo extends Object
             editor.setAresta(1);
         }
         editor.setVerticeFocado(v);
-        System.out.println("Vertice Focado: "+v.getDescricao());
-        System.out.println("Vertice Focado2: "+editor.getVerticeFocado().getDescricao());
+        editor.repaint();
+        editor.leitura(ComponenteSelecionado.getDescricao());
     }
 
     /**
